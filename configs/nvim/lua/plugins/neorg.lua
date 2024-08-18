@@ -14,6 +14,6 @@ return {
         },
       },
     })
-    vim.keymap.set("n", "<leader>ty", neorg.neorg.qol.todo-items.todo.task-pending, {})
+    vim.keymap.set("n", "<leader>ty", neorg.qol.todo-items.todo.task-pending, {})
   end,
 }
