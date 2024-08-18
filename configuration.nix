@@ -1,18 +1,19 @@
 # Edit this configuration file to define what should be installed on
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
-
-{ config, pkgs, ... }:
-
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      ./modules/gaming.nix
-      ./modules/nvidia.nix
-      ./modules/keyboard.nix
-      #./modules/monero.nix
-    ];
+  config,
+  pkgs,
+  ...
+}: {
+  imports = [
+    # Include the results of the hardware scan.
+    ./hardware-configuration.nix
+    ./modules/gaming.nix
+    ./modules/nvidia.nix
+    ./modules/keyboard.nix
+    #./modules/monero.nix
+  ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -20,7 +21,7 @@
 
   # Kernel
   boot.kernelPackages = pkgs.linuxPackages_zen;
-  boot.extraModulePackages = [ config.boot.kernelPackages.lenovo-legion-module ];
+  boot.extraModulePackages = [config.boot.kernelPackages.lenovo-legion-module];
 
   networking.hostName = "NixDesktop"; # Define your hostname.
   services.mullvad-vpn.enable = true;
@@ -33,9 +34,9 @@
   # Enable networking
   networking.networkmanager.enable = true;
   fonts = {
-    packages = [ pkgs.nerdfonts ];
+    packages = [pkgs.nerdfonts];
     fontDir.enable = true;
-    };
+  };
 
   # Set your time zone.
   time.timeZone = "Europe/Warsaw";
@@ -55,7 +56,7 @@
     LC_TIME = "uk_UA.UTF-8";
   };
 
-  services.displayManager ={ 
+  services.displayManager = {
     sddm.enable = true;
   };
 
@@ -72,14 +73,14 @@
   programs.hyprland = {
     enable = true;
     xwayland.enable = true;
-    };
+  };
   # Optional, hint electron apps to use wayland:
   # environment.sessionVariables.NIXOS_OZONE_WL = "1";
 
   # Configure keymap in X11
   services.xserver.xkb = {
     layout = "us, pl, ua";
-#    xkbVariant = "";
+    #    xkbVariant = "";
     options = "grp:alt_shift_toggle";
   };
 
@@ -89,44 +90,43 @@
     settings = {
       General = {
         Enable = "Source,Sink,Media,Socket";
-	      Name = "NixDesktop";
+        Name = "NixDesktop";
         ControllerMode = "dual";
-	      FastConnectable = "true";
-	      Experimental = "true";
-	      KernelExperimental = "true";
+        FastConnectable = "true";
+        Experimental = "true";
+        KernelExperimental = "true";
       };
       Policy.AutoEnable = "true";
     };
     input = {
       General = {
-      ClassicBondedOnly = true;
-      IdleTimeout = 30;
-      UserspaceHID=true;
-        };
+        ClassicBondedOnly = true;
+        IdleTimeout = 30;
+        UserspaceHID = true;
       };
+    };
   };
   services.blueman.enable = true;
   hardware.enableAllFirmware = true;
 
   services.udev = {
     enable = true;
-    extraRules = 
-    ''
-    # PS5 DualSense controller over USB hidraw 
-    KERNEL=="hidraw*", ATTRS{idVendor}=="054c", ATTRS{idProduct}=="0ce6", MODE="0660", TAG+="uaccess" 
-    # PS5 DualSense controller over bluetooth hidraw 
-    KERNEL=="hidraw*", KERNELS=="*054C:0CE6*", MODE="0660", TAG+="uaccess" 
-    # Cheapino Keyboard / Vial settings
-    KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{serial}=="*vial:f64c2b3c*", MODE="0660", GROUP="users", TAG+="uaccess", TAG+="udev-acl"
-    # Backligth
-    ACTION=="add", SUBSYSTEM=="backlight", KERNEL=="nvidia_0", MODE="0666", RUN+="${pkgs.coreutils}/bin/chmod a+w /sys/class/backlight/%k/brightness"
+    extraRules = ''
+      # PS5 DualSense controller over USB hidraw
+      KERNEL=="hidraw*", ATTRS{idVendor}=="054c", ATTRS{idProduct}=="0ce6", MODE="0660", TAG+="uaccess"
+      # PS5 DualSense controller over bluetooth hidraw
+      KERNEL=="hidraw*", KERNELS=="*054C:0CE6*", MODE="0660", TAG+="uaccess"
+      # Cheapino Keyboard / Vial settings
+      KERNEL=="hidraw*", SUBSYSTEM=="hidraw", ATTRS{serial}=="*vial:f64c2b3c*", MODE="0660", GROUP="users", TAG+="uaccess", TAG+="udev-acl"
+      # Backligth
+      ACTION=="add", SUBSYSTEM=="backlight", KERNEL=="nvidia_0", MODE="0666", RUN+="${pkgs.coreutils}/bin/chmod a+w /sys/class/backlight/%k/brightness"
     '';
   };
 
   # Enable CUPS to print documents.
   services.printing.enable = true;
 
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  nix.settings.experimental-features = ["nix-command" "flakes"];
 
   # Enable sound with pipewire.
   hardware.pulseaudio.enable = false;
@@ -138,13 +138,13 @@
     pulse.enable = true;
   };
 
-    # Define a user account. Don't forget to set a password with ‘passwd’.
+  # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.morok = {
     isNormalUser = true;
     description = "Morok";
-    extraGroups = [ "networkmanager" "wheel" ];
+    extraGroups = ["networkmanager" "wheel"];
     packages = with pkgs; [
-    #  thunderbird
+      #  thunderbird
     ];
   };
 
@@ -154,6 +154,8 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    luajitPackages.luarocks-nix
+    git-credential-manager
     gh
     nixd
     alejandra
@@ -212,7 +214,7 @@
     ripgrep
     fd
     gcc
-    ];
+  ];
 
   services.displayManager = {
     enable = true;
@@ -254,5 +256,4 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "24.05"; # Did you read the comment?
-
 }
