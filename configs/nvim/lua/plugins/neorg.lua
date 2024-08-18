@@ -12,8 +12,14 @@ return {
             icon_preset = "varied", -- And we set our option here.
           },
         },
+        ["core.dirman"] = {
+          config = {
+            workspaces = {
+              notes = "~/notes",
+            },
+          },
+        },
       },
     })
-    vim.keymap.set("n", "<leader>ty", neorg.qol.todo-items.todo.task-pending, {})
   end,
 }
