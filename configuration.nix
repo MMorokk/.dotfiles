@@ -214,6 +214,7 @@
     ripgrep
     fd
     gcc
+    openarena
   ];
 
   services.displayManager = {
