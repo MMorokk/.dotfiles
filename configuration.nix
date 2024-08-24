@@ -154,6 +154,7 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    fastfetch
     luajitPackages.luarocks-nix
     git-credential-manager
     gh
