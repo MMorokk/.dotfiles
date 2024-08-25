@@ -179,7 +179,7 @@
     waybar
     mpvpaper
     gammastep
-    librewolf
+    librewolf-wayland
     killall
     btop
     dualsensectl
