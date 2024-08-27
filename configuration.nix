@@ -156,6 +156,7 @@
   environment.systemPackages = with pkgs; [
     gns3-gui
     gns3-server
+    ciscoPacketTracer8
     fastfetch
     luajitPackages.luarocks-nix
     git-credential-manager
@@ -181,7 +182,6 @@
     waybar
     mpvpaper
     gammastep
-    librewolf-wayland
     killall
     btop
     dualsensectl
