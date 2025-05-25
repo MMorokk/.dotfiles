@@ -1,5 +1,5 @@
-vim.g.mapleader = 'z'
-vim.g.maplocalleader = 'z'
+vim.g.mapleader = ' '
+vim.g.maplocalleader = ' '
 
 -- use spaces for tabs and whatnot
 vim.opt.tabstop = 2
