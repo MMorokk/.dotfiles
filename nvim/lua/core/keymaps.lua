@@ -7,4 +7,4 @@ vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = 'Telescope help ta
 
 
 -- Neo-Tree:
-vim.keymap.set("n", "<leader>e", "<Cmd>Neotree reveal right<CR>")
+vim.keymap.set("n", "<leader>t", "<Cmd>:Neotree toggle right<CR>")
