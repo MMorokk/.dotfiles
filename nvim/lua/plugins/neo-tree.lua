@@ -12,5 +12,9 @@ return {
   ---@type neotree.Config?
   opts = {
     -- fill any relevant options here
+    source_selector = {
+            winbar = true,
+            statusline = false
+        }
   },
 }
